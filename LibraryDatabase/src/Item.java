@@ -3,9 +3,10 @@ public abstract class Item {
 	protected String name;
 	protected String language;
 	protected String genre;
-	protected int loanPeriod;
+	protected int loanPeriod; //days
 	protected boolean available;
 	protected String type;
+	protected Date checkOutDate;
 	static ArrayList<Item> shelf = new ArrayList<Item>(); 
 	
 	public String getName() {
@@ -28,5 +29,11 @@ public abstract class Item {
 	}
 	public String getType() {
 		return type;
+	}
+	public Date getDate() {
+		return checkOutDate;
+	}
+	public void setDate() {
+		checkOutDate = new Date();  //Gets current date
 	}
 }

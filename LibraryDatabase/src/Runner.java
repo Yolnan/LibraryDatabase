@@ -110,6 +110,7 @@ public class Runner {
     	 for (Item item: Item.shelf) {
     		 if (item.name.equalsIgnoreCase(title) && item.isAvailable()) {
     			 item.setAvailable(false);
+    			 item.setDate();
     			 p.patronBag.add(item);
     			 System.out.println("You have checked out " + item.getName());
              } else if(item.name.equalsIgnoreCase(title) && item.isAvailable() == false) {
@@ -128,14 +129,30 @@ public class Runner {
     	for (Item item: p.patronBag) {
     		if (item.name.equalsIgnoreCase(title)) {
    			 	item.setAvailable(true);
-   			 	System.out.println("You have returned " + item.getName());
    			 	p.patronBag.remove(item);
+   			 	System.out.println("You have returned " + item.getName());
+   			 	p.increaseFine(calculateFee(item));
+   			 	if(p.getFine() > 0) {
+   			 		System.out.println("You owe " + p.getFine() + " cents late fee");
+   			 	}
    			 	found = true;
    			 	break;
     		} 
     	}	
     	if(found == false) {
 			System.out.println("You do not have " + title);
+    	}
+    }
+    public static int calculateFee(Item item) {
+    	Date currentDate = new Date();
+    	int diff = 0;
+    	int fine = 0;
+    	diff = (int)((currentDate.getTime() - item.getDate().getTime())/1000/60/60/24); //getTime() calculate milSec past since 1-Jan-1970
+    	fine = (diff - item.getLoanPeriod())*20;
+    	if(fine > 0) {
+    		return fine;
+    	} else {
+    		return 0;
     	}
     }
 	public static void main(String[] args) {

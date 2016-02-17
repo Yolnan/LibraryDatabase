@@ -3,12 +3,14 @@ public class Patron {
 	static Scanner input = new Scanner(System.in);
 	static int pNum = 1;
 	String pName;
+	static int fine;
 	ArrayList<Item> patronBag;
 //	static ArrayList<Patron> patronList = new ArrayList<Patron>();
 	public Patron(int p, String np) {
 		pNum = p;
 		pName = np;
 		patronBag = new ArrayList<Item>();
+		fine = 0;
 	}
 	public static Patron addPatron() {
 		System.out.println("Welcome");
@@ -18,6 +20,12 @@ public class Patron {
 //		patronList.add(a);
 		System.out.println("Hello " + n);
 		return b;
+	}
+	public static void increaseFine(int f) {
+		fine += f;
+	}
+	public static int getFine() {
+		return fine;
 	}
 //	public void addBook() {
 //		System.out.println("Enter the title of the book ");
